@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kantor Walut</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f4f4; }
+
+        .kantor { border: 2px solid teal; border-radius: 15px; width: 350px; padding: 20px; box-shadow: 0 5px 15px black; background-color: white; text-align: center; }
+
+        input[type="text"], select, .przycisk, .waluta { width: 100%; padding: 10px; margin: 8px 0; display: inline-block; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+
+        button { background-color: black; color: white; padding: 14px 20px; margin: 8px 0; border: none; border-radius: 4px; cursor: pointer; }
+
+        button:hover { background-color: white; }
+
+        .przycisk { background-color: teal; }
+
+        .przycisk:hover { background-color: teal; }
+
+        .waluty { text-align: left; }
+
+        .wynik { font-size: 1.2em; color: teal; }
+    </style>
+</head>
+<body>
+    <form id="kantorForm">
+        <fieldset class="kantor">
+            <legend>KANTOR WALUT</legend>
+            <label for="kwota">Kwota:</label>
+            <input type="text" id="kwota" name="kwota" required>
+            
+            <label for="waluta">Waluta:</label>
+            <select id="waluta" name="waluta">
+                <option value="PLN">PLN</option>
+                <option value="USD">USD</option>
+                <option value="GBP">GBP</option>
+                <option value="EUR">EUR</option>
+                <option value="CHF">CHF</option>
+            </select>
+            <p>*pole wymagane*</p>
+            
+            <label>Wybierz walutę docelową:</label>
+            <div class="waluty">
+                <input type="radio" id="pln" name="docelowa" value="PLN">
+                <label for="pln">PLN</label><br>
+                <input type="radio" id="usd" name="docelowa" value="USD">
+                <label for="usd">USD</label><br>
+                <input type="radio" id="gbp" name="docelowa" value="GBP">
+                <label for="gbp">GBP</label><br>
+                <input type="radio" id="eur" name="docelowa" value="EUR">
+                <label for="eur">EUR</label><br>
+                <input type="radio" id="chf" name="docelowa" value="CHF">
+                <label for="chf">CHF</label><br>
+            </div>
+            
+            <button type="button" class="przycisk" onclick="przelicz()">PRZELICZ</button>
+            
+            <p id="wynik">Otrzymasz:</p>
+        </fieldset>
+    </form>
+
+    <script>
+        function przelicz() 
+        {
+            var kwota = parseFloat(document.getElementById("kwota").value);
+            
+            var walutaDocelowa = document.querySelector('input[name="docelowa"]:checked').value;
+            
+            var przeliczonaKwota;
+            switch(walutaDocelowa) {
+                case 'PLN':
+                    przeliczonaKwota = kwota * 1;
+                    break;
+                case 'USD':
+                    przeliczonaKwota = kwota * 3.75;
+                    break;
+                case 'GBP':
+                    przeliczonaKwota = kwota * 5.24;
+                    break;
+                case 'EUR':
+                    przeliczonaKwota = kwota * 4.56;
+                    break;
+                case 'CHF':
+                    przeliczonaKwota = kwota * 4.15;
+                    break;
+                default:
+                    przeliczonaKwota = 0;
+            }
+            document.getElementById("wynik").innerText = "Otrzymasz: " + przeliczonaKwota.toFixed(2) + " " + walutaDocelowa;
+        }
+    </script>
+</body>
+</html>
